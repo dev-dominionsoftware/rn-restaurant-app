@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, ScrollView} from "react-native";
 import SearchBar from "../components/SearchBar";
 import ResultsList from "../components/ResultsList";
 import useResults from "../hooks/useResults";
-import Separator from "../components/Separator";
 
 const SearchScreen = () => {
     const [searchText, setSearchText] = useState('');
@@ -15,7 +14,7 @@ const SearchScreen = () => {
         });
     }
 
-    return <View>
+    return <View style={{flex: 1}}>
         <SearchBar searchText={searchText}
                    onSearchChanged={(text) => setSearchText(text)}
                    onTextSubmit={() => searchApi(searchText)}
@@ -23,9 +22,11 @@ const SearchScreen = () => {
         {
             errorMessage ? <Text>{errorMessage}</Text> : null
         }
-        <ResultsList results={filterResultsByPrice('$')} title='Cost Effective'/>
-        <ResultsList results={filterResultsByPrice('$$')} title='Bit Pricer'/>
-        <ResultsList results={filterResultsByPrice('$$$')} title='Big Spender'/>
+        <ScrollView>
+            <ResultsList results={filterResultsByPrice('$')} title='Cost Effective'/>
+            <ResultsList results={filterResultsByPrice('$$')} title='Bit Pricer'/>
+            <ResultsList results={filterResultsByPrice('$$$')} title='Big Spender'/>
+        </ScrollView>
     </View>
 }
 
