@@ -15,26 +15,18 @@ const SearchScreen = () => {
         });
     }
 
-    return <View style={styles.container}>
+    return <View>
         <SearchBar searchText={searchText}
                    onSearchChanged={(text) => setSearchText(text)}
                    onTextSubmit={() => searchApi(searchText)}
         />
         {
-            errorMessage ? <Text>{errorMessage}</Text> : <Text>First restaurnat name is {results.length}</Text>
+            errorMessage ? <Text>{errorMessage}</Text> : null
         }
-        <ResultsList results={filterResultsByPrice('$')} title='Const Effective'/>
-        <Separator/>
+        <ResultsList results={filterResultsByPrice('$')} title='Cost Effective'/>
         <ResultsList results={filterResultsByPrice('$$')} title='Bit Pricer'/>
-        <Separator/>
         <ResultsList results={filterResultsByPrice('$$$')} title='Big Spender'/>
     </View>
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-    },
-});
 
 export default SearchScreen
