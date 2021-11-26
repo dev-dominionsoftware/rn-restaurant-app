@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 import ResultsDetails from "./ResultsDetails";
 import Separator from "./Separator";
+import {withNavigation} from "react-navigation"; // See bottom file for explanation
 
 const ResultsList = ({title, results, navigation}) => {
     return (
@@ -44,4 +45,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ResultsList
+export default withNavigation(ResultsList) // Wrapping ResultsList with function withNavigation case, that object with props
+// is passed to ResultsList directly, so we can receive it as argument in our arrow function
