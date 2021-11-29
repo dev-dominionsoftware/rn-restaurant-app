@@ -6,7 +6,6 @@ export default () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const searchApi = async (searchTerm) => {
-        console.log('Hi there');
         try {
             const responce = await yelp.get('/search', {
                 params: {
