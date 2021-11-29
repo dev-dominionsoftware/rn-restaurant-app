@@ -12,6 +12,10 @@ const SearchBar = ({searchText, onSearchChanged, onTextSubmit}) => {
 
 const styles = StyleSheet.create({
     container: {
+        marginStart: 16,
+        marginEnd: 16,
+        marginBottom: 8,
+        marginTop: 16,
         height: 50,
         flexDirection: 'row',
         backgroundColor: '#f0eeee',

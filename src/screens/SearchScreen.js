@@ -1,20 +1,35 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {Text, ScrollView} from "react-native";
 import SearchBar from "../components/SearchBar";
+import ResultsList from "../components/ResultsList";
+import useResults from "../hooks/useResults";
 
 const SearchScreen = () => {
-    const [searchText, setSearchText] = useState('')
+    const [searchText, setSearchText] = useState('');
+    const [searchApi, results, errorMessage] = useResults();
 
-    return <View style={styles.container}>
-        <SearchBar searchText={searchText} onSearchChanged={(text) => setSearchText(text)} onTextSubmit={() => { console.log('submitted')}}/>
-        <Text>{searchText}</Text>
-    </View>
+    const filterResultsByPrice = (price) => {
+        return results.filter(result => {
+            return result.price === price;
+        });
+    }
+
+    return (
+        <>
+            <SearchBar searchText={searchText}
+                       onSearchChanged={(text) => setSearchText(text)}
+                       onTextSubmit={() => searchApi(searchText)}
+            />
+            {
+                errorMessage ? <Text>{errorMessage}</Text> : null
+            }
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <ResultsList results={filterResultsByPrice('$')} title='Cost Effective'/>
+                <ResultsList results={filterResultsByPrice('$$')} title='Bit Pricer'/>
+                <ResultsList results={filterResultsByPrice('$$$')} title='Big Spender'/>
+            </ScrollView>
+        </>
+    )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-    },
-});
 
 export default SearchScreen
